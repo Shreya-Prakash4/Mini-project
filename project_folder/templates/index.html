@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crack Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   
+</head>
+
+<body>
+    <div class="background"></div>
+        <div class="container">
+            <h1>Crack Detection System</h1>
+            <div class="upload-section">
+            <h2>Upload an Image to Test</h2>
+            <form class="form" action="/predict" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" accept="image/*" required>
+                <button type="submit">Upload and Predict</button>
+            </form>
+        </div>
+
+        {% if input_img_str and output_img_str %}
+        <div class="image-container">
+            <div class="bothbox" style="display: flex; justify-content: center; margin-top: 50px;">
+
+            <!-- Input Image -->
+            <div class="image-box" id="leftbox" style="flex: 1; padding: 20px;">
+                <h3>Input Image</h3>
+                <img src="data:image/png;base64,{{ input_img_str }}" alt="Input Image">
+            </div>
+
+            <!-- Output Image with Prediction -->
+                <div class="image-box" id="rightbox" style="flex: 1; padding: 20px;">
+                <h3>Output Image</h3>
+                <img src="data:image/png;base64,{{ output_img_str }}" alt="Output Image">
+                <div class="output-text">
+                    <p>{{ result }}</p>
+                    <p>Confidence: {{ confidence }}%</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        {% endif %}
+        </div>
+</body>
+
+</html>
